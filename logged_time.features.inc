@@ -10,6 +10,15 @@ function logged_time_content_default_fields() {
 }
 
 /**
+ * Implementation of hook_context_default_contexts().
+ */
+function logged_time_context_default_contexts() {
+  module_load_include('inc', 'logged_time', 'logged_time.defaults');
+  $args = func_get_args();
+  return call_user_func_array('_logged_time_context_default_contexts', $args);
+}
+
+/**
  * Implementation of hook_ctools_plugin_api().
  */
 function logged_time_ctools_plugin_api() {
