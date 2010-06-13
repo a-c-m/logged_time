@@ -1,0 +1,7 @@
+#features-menu li a.icon-logged_time span.icon {
+  background:url(icon.png) no-repeat;
+}
+
+span.spaces-feature.feature-logged_time {
+  background:url(icon_small.png) no-repeat;
+}

@@ -1,0 +1,10 @@
+<?php
+
+include_once('logged_time.features.inc');
+
+/**
+* Implementation of hook_init().
+*/
+function logged_time_init() {
+  drupal_add_css(drupal_get_path('module', 'logged_time') .'/logged_time.css');
+}
