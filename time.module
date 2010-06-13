@@ -1,0 +1,10 @@
+<?php
+
+include_once('time.features.inc');
+
+/**
+* Implementation of hook_init().
+*/
+function time_init() {
+  drupal_add_css(drupal_get_path('module', 'time') .'/time.css');
+}
