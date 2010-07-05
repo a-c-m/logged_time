@@ -68,7 +68,7 @@ function _logged_time_views_default_views() {
       'relationship' => 'none',
     ),
     'title' => array(
-      'label' => 'Referenced by',
+      'label' => 'Comment',
       'alter' => array(
         'alter_text' => 0,
         'text' => '',
@@ -101,8 +101,31 @@ function _logged_time_views_default_views() {
       ),
     ),
     'name' => array(
-      'label' => 'Author',
+      'label' => 'Who',
+      'alter' => array(
+        'alter_text' => 0,
+        'text' => '',
+        'make_link' => 0,
+        'path' => '',
+        'link_class' => '',
+        'alt' => '',
+        'prefix' => '',
+        'suffix' => '',
+        'target' => '',
+        'help' => '',
+        'trim' => 0,
+        'max_length' => '',
+        'word_boundary' => 1,
+        'ellipsis' => 1,
+        'html' => 0,
+        'strip_tags' => 0,
+      ),
+      'empty' => '',
+      'hide_empty' => 0,
+      'empty_zero' => 0,
       'link_to_user' => 1,
+      'overwrite_anonymous' => 0,
+      'anonymous_text' => '',
       'exclude' => 0,
       'id' => 'name',
       'table' => 'users',
@@ -189,10 +212,11 @@ function _logged_time_views_default_views() {
         'group' => 0,
         'profile' => 0,
         'shoutbox' => 0,
+        'logged_time' => 0,
         'support_ticket' => 0,
+        'support_time' => 0,
         'casetracker_basic_case' => 0,
         'casetracker_basic_project' => 0,
-        'logged_time' => 0,
       ),
       'validate_argument_node_access' => 0,
       'validate_argument_nid_type' => 'nid',
@@ -203,7 +227,11 @@ function _logged_time_views_default_views() {
       'validate_argument_transform' => 0,
       'validate_user_restrict_roles' => 0,
       'validate_argument_is_member' => 0,
-      'validate_argument_php' => '',
+      'validate_argument_php' => 'dvm($argument); 
+return TRUE;',
+      'override' => array(
+        'button' => 'Override',
+      ),
     ),
   ));
   $handler->override_option('filters', array(
@@ -279,6 +307,9 @@ function _logged_time_views_default_views() {
     'type' => 'none',
   ));
   $handler->override_option('title', 'Logged billable time');
+  $handler->override_option('header_format', '5');
+  $handler->override_option('header_empty', 0);
+  $handler->override_option('empty_format', '5');
   $handler->override_option('items_per_page', 0);
   $handler->override_option('use_pager', '0');
   $handler->override_option('style_plugin', 'views_calc');
@@ -297,7 +328,7 @@ function _logged_time_views_default_views() {
       'field_hours_value' => array(
         'sortable' => 0,
         'separator' => '',
-        'justification' => 'views_calc_justify_none',
+        'justification' => 'views_calc_justify_left',
         'has_calc' => 1,
         'calc' => array(
           'SUM' => 'SUM',

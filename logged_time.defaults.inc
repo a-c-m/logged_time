@@ -185,6 +185,19 @@ Pre-paid',
     'module' => 'nodereference',
     'active' => '1',
     'referenceable_types' => array(
+      'book' => 'book',
+      'event' => 'event',
+      'group' => 'group',
+      'support_ticket' => 'support_ticket',
+      'blog' => 0,
+      'casetracker_basic_case' => 0,
+      'logged_time' => 0,
+      'profile' => 0,
+      'casetracker_basic_project' => 0,
+      'shoutbox' => 0,
+      'support_time' => 0,
+      'feed_ical_item' => 0,
+      'feed_ical' => 0,
     ),
     'advanced_view' => '--',
     'advanced_view_args' => '',
@@ -192,7 +205,7 @@ Pre-paid',
       'node_link' => array(
         'teaser' => 0,
         'full' => 1,
-        'title' => 'Log logged_time',
+        'title' => 'Log time',
         'hover_title' => 'Submit the time you\'ve worked for this item.',
         'destination' => 'node',
       ),
@@ -250,6 +263,7 @@ function _logged_time_context_default_contexts() {
           'weight' => 1,
         ),
       ),
+      'layout' => 'default',
     ),
   );
   $context->condition_mode = 0;
@@ -270,7 +284,10 @@ function _logged_time_ctools_plugin_api() {
   $args = func_get_args();
   $module = array_shift($args);
   $api = array_shift($args);
-  if ($module == "strongarm" && $api == "strongarm") {
+  if ($module == "context" && $api == "context") {
+    return array("version" => 3);
+  }
+  else if ($module == "strongarm" && $api == "strongarm") {
     return array("version" => 1);
   }
 }
@@ -297,8 +314,19 @@ function _logged_time_strongarm() {
   );
 
   $export['content_extra_weights_logged_time'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'og_content_type_usage_logged_time';
+  $strongarm->value = 'group_post_standard';
+
+  $export['og_content_type_usage_logged_time'] = $strongarm;
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'comment_logged_time';
+  $strongarm->value = '0';
   
-  $export['og_content_type_usage_logged_time'] = 'group_post_standard';
-  
+  $export['comment_logged_time'] = $strongarm;
   return $export;
 }
