@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Helper to implementation of hook_views_default_views().
+ * Implementation of hook_views_default_views().
  */
-function _logged_time_views_default_views() {
+function logged_time_views_default_views() {
   $views = array();
 
   // Exported view: logged_time_logged

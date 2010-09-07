@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Helper to implementation of hook_content_default_fields().
+ * Implementation of hook_content_default_fields().
  */
-function _logged_time_content_default_fields() {
+function logged_time_content_default_fields() {
   $fields = array();
 
   // Exported field: field_billable
-  $fields[] = array(
+  $fields['logged_time-field_billable'] = array(
     'field_name' => 'field_billable',
     'type_name' => 'logged_time',
     'display_settings' => array(
@@ -73,7 +73,7 @@ Pre-paid',
   );
 
   // Exported field: field_hours
-  $fields[] = array(
+  $fields['logged_time-field_hours'] = array(
     'field_name' => 'field_hours',
     'type_name' => 'logged_time',
     'display_settings' => array(
@@ -140,7 +140,7 @@ Pre-paid',
   );
 
   // Exported field: field_parent
-  $fields[] = array(
+  $fields['logged_time-field_parent'] = array(
     'field_name' => 'field_parent',
     'type_name' => 'logged_time',
     'display_settings' => array(
@@ -220,113 +220,10 @@ Pre-paid',
   );
 
   // Translatables
-  array(
-    t('Billable'),
-    t('Hours'),
-    t('Logged against'),
-  );
+  // Included for use with string extractors like potx.
+  t('Billable');
+  t('Hours');
+  t('Logged against');
 
   return $fields;
-}
-
-/**
- * Helper to implementation of hook_context_default_contexts().
- */
-function _logged_time_context_default_contexts() {
-  $export = array();
-  $context = new stdClass;
-  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
-  $context->api_version = 3;
-  $context->name = 'logged_time';
-  $context->description = 'Simple node+cck based time logging';
-  $context->tag = 'Logged Time';
-  $context->conditions = array(
-    'sitewide' => array(
-      'values' => array(
-        '1' => 1,
-      ),
-    ),
-  );
-  $context->reactions = array(
-    'block' => array(
-      'blocks' => array(
-        'views-logged_time_logged-block_1' => array(
-          'module' => 'views',
-          'delta' => 'logged_time_logged-block_1',
-          'region' => 'right',
-          'weight' => 0,
-        ),
-        'views-logged_time_logged-block_2' => array(
-          'module' => 'views',
-          'delta' => 'logged_time_logged-block_2',
-          'region' => 'right',
-          'weight' => 1,
-        ),
-      ),
-      'layout' => 'default',
-    ),
-  );
-  $context->condition_mode = 0;
-
-  $translatables['logged_time'] = array(
-    t('Logged Time'),
-    t('Simple node+cck based time logging'),
-  );
-
-  $export['logged_time'] = $context;
-  return $export;
-}
-
-/**
- * Helper to implementation of hook_ctools_plugin_api().
- */
-function _logged_time_ctools_plugin_api() {
-  $args = func_get_args();
-  $module = array_shift($args);
-  $api = array_shift($args);
-  if ($module == "context" && $api == "context") {
-    return array("version" => 3);
-  }
-  else if ($module == "strongarm" && $api == "strongarm") {
-    return array("version" => 1);
-  }
-}
-
-/**
- * Helper to implementation of hook_strongarm().
- */
-function _logged_time_strongarm() {
-  $export = array();
-  $strongarm = new stdClass;
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'content_extra_weights_logged_time';
-  $strongarm->value = array(
-    'title' => '34',
-    'body_field' => '37',
-    'revision_information' => '39',
-    'comment_settings' => '42',
-    'menu' => '35',
-    'book' => '38',
-    'path' => '40',
-    'attachments' => '41',
-    'og_nodeapi' => '36',
-  );
-
-  $export['content_extra_weights_logged_time'] = $strongarm;
-  $strongarm = new stdClass;
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'og_content_type_usage_logged_time';
-  $strongarm->value = 'group_post_standard';
-
-  $export['og_content_type_usage_logged_time'] = $strongarm;
-  $strongarm = new stdClass;
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'comment_logged_time';
-  $strongarm->value = '0';
-  
-  $export['comment_logged_time'] = $strongarm;
-  return $export;
 }
